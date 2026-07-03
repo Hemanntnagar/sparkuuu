@@ -1935,6 +1935,27 @@
                 return R * c; // in metres
             }
 
+            function verifyClassroomLocation() {
+                return new Promise((resolve) => {
+                    if (!navigator.geolocation) {
+                        resolve({ inRange: false, error: 'Geolocation not supported.' });
+                        return;
+                    }
+                    navigator.geolocation.getCurrentPosition(
+                        (pos) => {
+                            const dist = getDistance(
+                                pos.coords.latitude,
+                                pos.coords.longitude,
+                                CLASSROOM_LOCATION.lat,
+                                CLASSROOM_LOCATION.lon
+                            );
+                            resolve({ inRange: dist <= RADIUS_METERS });
+                        },
+                        () => resolve({ inRange: false, error: 'Location permission denied.' })
+                    );
+                });
+            }
+
             // Load face-api models (for attendance only)
             const loadModels = async () => {
                 if (faceModelsLoaded || faceModelsLoading) return;
@@ -2443,6 +2464,16 @@
                     return;
                 }
 
+                const locationBeforeLiveness = await verifyClassroomLocation();
+                if (!locationBeforeLiveness.inRange) {
+                    if (locationBeforeLiveness.error) {
+                        showMessage(`${locationBeforeLiveness.error} Attendance not marked.`);
+                    } else {
+                        showMessage("Liveness not detected — out of location.");
+                    }
+                    return;
+                }
+
                 // Disable button during liveness check
                 markAttendanceBtn.disabled = true;
                 const livenessStatus = document.getElementById('liveness-status');
@@ -2500,31 +2531,22 @@
                     return; 
                 }
 
-                // Face matched and liveness verified, now verify location
-                if (!navigator.geolocation) { 
-                    markAttendanceBtn.disabled = false;
-                    if (markAttendanceBtnText) markAttendanceBtnText.textContent = 'Mark Attendance with Face Recognition';
-                    showMessage("Geolocation not supported."); 
-                    return; 
-                }
-                
-                navigator.geolocation.getCurrentPosition(pos => {
-                    const dist = getDistance(pos.coords.latitude, pos.coords.longitude, CLASSROOM_LOCATION.lat, CLASSROOM_LOCATION.lon);
-                    if (dist <= RADIUS_METERS) {
-                        showMessage("Attendance marked successfully ✅");
-                        markAttendanceBtn.disabled = false;
-                        if (markAttendanceBtnText) markAttendanceBtnText.textContent = 'Mark Attendance with Face Recognition';
-                        // TODO: Update attendance table dynamically if needed
+                // Face matched and liveness verified, now verify location again
+                const locationAfterLiveness = await verifyClassroomLocation();
+                markAttendanceBtn.disabled = false;
+                if (markAttendanceBtnText) markAttendanceBtnText.textContent = 'Mark Attendance with Face Recognition';
+
+                if (!locationAfterLiveness.inRange) {
+                    if (locationAfterLiveness.error) {
+                        showMessage(`${locationAfterLiveness.error} Attendance not marked.`);
                     } else {
-                        showMessage("Outside classroom ❌ Attendance not marked.");
-                        markAttendanceBtn.disabled = false;
-                        if (markAttendanceBtnText) markAttendanceBtnText.textContent = 'Mark Attendance with Face Recognition';
+                        showMessage("Liveness not detected — out of location.");
                     }
-                }, err => {
-                    showMessage("Location permission denied. Attendance not marked.");
-                    markAttendanceBtn.disabled = false;
-                    if (markAttendanceBtnText) markAttendanceBtnText.textContent = 'Mark Attendance with Face Recognition';
-                });
+                    return;
+                }
+
+                showMessage("Attendance marked successfully ✅");
+                // TODO: Update attendance table dynamically if needed
             });
 
             // ===== Dashboard Tab Functionality =====

@@ -643,12 +643,12 @@
                         <!-- Home Screen -->
                         <div id="home-screen" class="bg-gray-800 p-6 rounded-lg shadow-md">
                             <header class="text-center mb-8">
-                                <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Secure Face Recognition</h1>
-                                <p class="text-gray-400">Registration, Login & Location Verification</p>
+                                <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Welcome to Spark</h1>
+                                <p class="text-gray-400">Create an account or sign in with your email</p>
                             </header>
 
                             <div class="space-y-6">
-                                <p class="text-center text-gray-400">Welcome! Use your face to register or log in.</p>
+                                <p class="text-center text-gray-400">Register as a new student or log in to your account.</p>
                                 <div
                                     class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 justify-center">
                                     <button onclick="showRegister()"
@@ -662,18 +662,19 @@
 
                         <!-- Register Screen -->
                         <div id="register-screen" class="hidden bg-gray-800 p-6 rounded-lg shadow-md">
-                            <h2 class="text-2xl font-semibold text-center mb-6">New User Registration</h2>
-                            <div class="camera-container rounded-3xl overflow-hidden mb-6 shadow-md mx-auto"
-                                style="max-width: 500px;">
-                                <video id="video-reg" class="block bg-black"></video>
-                                <canvas id="canvas-reg" class="block"></canvas>
-                            </div>
-                            <div class="space-y-4">
-                                <input type="text" id="username-input" placeholder="Enter your username"
+                            <h2 class="text-2xl font-semibold text-center mb-6">Create Account</h2>
+                            <div class="space-y-4 max-w-md mx-auto">
+                                <input type="text" id="username-input" placeholder="Full name"
+                                    class="w-full p-3 rounded-full border border-gray-600 bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+                                <input type="email" id="register-email-input" placeholder="Email address"
+                                    class="w-full p-3 rounded-full border border-gray-600 bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+                                <input type="password" id="register-password-input" placeholder="Password"
+                                    class="w-full p-3 rounded-full border border-gray-600 bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+                                <input type="password" id="register-confirm-password-input" placeholder="Confirm password"
                                     class="w-full p-3 rounded-full border border-gray-600 bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
                                 <button id="register-btn"
                                     class="w-full px-8 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-green-700 transition transform hover:scale-105 shadow-lg"
-                                    disabled>Capture Face and Register</button>
+                                    disabled>Create Account</button>
                             </div>
                             <button onclick="goHome()"
                                 class="mt-4 text-sm text-blue-400 hover:text-blue-300 transition duration-200">&larr;
@@ -683,15 +684,16 @@
 
                         <!-- Login Screen -->
                         <div id="login-screen" class="hidden bg-gray-800 p-6 rounded-lg shadow-md">
-                            <h2 class="text-2xl font-semibold text-center mb-6">User Login</h2>
-                            <div class="camera-container rounded-3xl overflow-hidden mb-6 shadow-md mx-auto"
-                                style="max-width: 500px;">
-                                <video id="video-login" class="block bg-black"></video>
-                                <canvas id="canvas-login" class="block"></canvas>
+                            <h2 class="text-2xl font-semibold text-center mb-6">Sign In</h2>
+                            <div class="space-y-4 max-w-md mx-auto">
+                                <input type="email" id="login-email-input" placeholder="Email address"
+                                    class="w-full p-3 rounded-full border border-gray-600 bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+                                <input type="password" id="login-password-input" placeholder="Password"
+                                    class="w-full p-3 rounded-full border border-gray-600 bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+                                <button id="login-btn"
+                                    class="w-full px-8 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition transform hover:scale-105 shadow-lg"
+                                    disabled>Sign In</button>
                             </div>
-                            <button id="login-btn"
-                                class="w-full px-8 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition transform hover:scale-105 shadow-lg"
-                                disabled>Recognize Face & Verify Location</button>
                             <button onclick="goHome()"
                                 class="mt-4 text-sm text-blue-400 hover:text-blue-300 transition duration-200">&larr;
                                 Back to
@@ -722,7 +724,7 @@
                                 Back to Home</button>
                         </div>
 
-                        <!-- Loading -->
+                        <!-- Loading (face models for attendance) -->
                         <div id="loading" class="hidden text-center bg-gray-800 p-6 rounded-lg shadow-md">
                             <svg class="animate-spin h-10 w-10 text-blue-600 mx-auto" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 24 24">
@@ -732,7 +734,7 @@
                                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                                 </path>
                             </svg>
-                            <p class="mt-4 text-gray-400">Loading face models...</p>
+                            <p class="mt-4 text-gray-400">Loading attendance models...</p>
                         </div>
                     </div>
 
@@ -908,6 +910,11 @@
                         <div id="attendance" class="tab-content">
                             <div class="bg-gray-800 p-6 rounded-lg shadow-md">
                                 <h2 class="text-2xl font-bold mb-4">Mark Attendance</h2>
+                                <div id="face-setup-section" class="hidden mb-6 p-4 bg-yellow-900/40 border border-yellow-700 rounded-lg max-w-md mx-auto text-center">
+                                    <p class="text-yellow-200 text-sm mb-3">Set up face recognition once to mark attendance.</p>
+                                    <button id="setup-face-btn"
+                                        class="px-6 py-2 bg-yellow-600 text-white rounded-full font-semibold hover:bg-yellow-700 transition">Set Up Face</button>
+                                </div>
                                 <div class="camera-container rounded-3xl overflow-hidden mb-6 shadow-md mx-auto"
                                     style="max-width: 500px;">
                                     <video id="video-attendance" class="block bg-black"></video>
@@ -1673,17 +1680,19 @@
 
         // Student Dashboard Initialization
         function initializeStudentDashboard() {
-            // ===== Face Recognition System =====
-            const videoReg = document.getElementById('video-reg');
-            const videoLogin = document.getElementById('video-login');
-            const canvasReg = document.getElementById('canvas-reg');
-            const canvasLogin = document.getElementById('canvas-login');
             const registerBtn = document.getElementById('register-btn');
             const loginBtn = document.getElementById('login-btn');
             const usernameInput = document.getElementById('username-input');
+            const registerEmailInput = document.getElementById('register-email-input');
+            const registerPasswordInput = document.getElementById('register-password-input');
+            const registerConfirmPasswordInput = document.getElementById('register-confirm-password-input');
+            const loginEmailInput = document.getElementById('login-email-input');
+            const loginPasswordInput = document.getElementById('login-password-input');
             const videoAttendance = document.getElementById('video-attendance');
             const canvasAttendance = document.getElementById('canvas-attendance');
             const markAttendanceBtn = document.getElementById('mark-attendance-btn');
+            const setupFaceBtn = document.getElementById('setup-face-btn');
+            const faceSetupSection = document.getElementById('face-setup-section');
 
             const homeScreen = document.getElementById('home-screen');
             const registerScreen = document.getElementById('register-screen');
@@ -1694,16 +1703,48 @@
             const authScreens = document.getElementById('auth-screens');
             const dashboardContent = document.getElementById('dashboard-content');
 
-            let isVideoRegPlaying = false;
-            let isVideoLoginPlaying = false;
+            if (authScreens) authScreens.classList.remove('hidden');
+            if (dashboardContent) dashboardContent.classList.add('hidden');
+
             let isVideoAttendancePlaying = false;
-            let regInterval, loginInterval, attendanceInterval;
-            let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || {};
+            let attendanceInterval;
+            let authUsers = JSON.parse(localStorage.getItem('authUsers')) || {};
             let loggedInUser = null;
+            let faceModelsLoaded = false;
+            let faceModelsLoading = false;
 
             // Classroom location
             const CLASSROOM_LOCATION = { lat: 22.681432, lon: 75.879018 };
             const RADIUS_METERS = 49;
+
+            async function hashPassword(password) {
+                const encoder = new TextEncoder();
+                const data = encoder.encode(password);
+                const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+                return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+            }
+
+            function isValidEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+
+            function updateRegisterButtonState() {
+                const ready = usernameInput.value.trim() &&
+                    registerEmailInput.value.trim() &&
+                    registerPasswordInput.value &&
+                    registerConfirmPasswordInput.value;
+                registerBtn.disabled = !ready;
+            }
+
+            function updateLoginButtonState() {
+                loginBtn.disabled = !(loginEmailInput.value.trim() && loginPasswordInput.value);
+            }
+
+            function updateFaceSetupUI() {
+                if (!faceSetupSection) return;
+                const needsSetup = loggedInUser && !loggedInUser.descriptor;
+                faceSetupSection.classList.toggle('hidden', !needsSetup);
+            }
 
             // Function to update all profile photos (defined early for use in login)
             function updateAllProfilePhotos(imageData) {
@@ -1857,27 +1898,21 @@
             window.showRegister = () => {
                 if (homeScreen) homeScreen.classList.add('hidden');
                 if (registerScreen) registerScreen.classList.remove('hidden');
-                startVideo(videoReg, canvasReg, 'register');
+                updateRegisterButtonState();
             };
 
             window.showLogin = () => {
                 if (homeScreen) homeScreen.classList.add('hidden');
                 if (loginScreen) loginScreen.classList.remove('hidden');
-                startVideo(videoLogin, canvasLogin, 'login');
+                updateLoginButtonState();
             };
 
             const stopAllVideo = () => {
-                [videoReg, videoLogin, videoAttendance].forEach(v => {
-                    if (v && v.srcObject) {
-                        v.srcObject.getTracks().forEach(t => t.stop());
-                        v.pause();
-                    }
-                });
-                if (regInterval) clearInterval(regInterval);
-                if (loginInterval) clearInterval(loginInterval);
+                if (videoAttendance && videoAttendance.srcObject) {
+                    videoAttendance.srcObject.getTracks().forEach(t => t.stop());
+                    videoAttendance.pause();
+                }
                 if (attendanceInterval) clearInterval(attendanceInterval);
-                isVideoRegPlaying = false;
-                isVideoLoginPlaying = false;
                 isVideoAttendancePlaying = false;
             };
 
@@ -1900,21 +1935,24 @@
                 return R * c; // in metres
             }
 
-            // Load face-api models
+            // Load face-api models (for attendance only)
             const loadModels = async () => {
-                loading.classList.remove('hidden');
+                if (faceModelsLoaded || faceModelsLoading) return;
+                faceModelsLoading = true;
+                if (loading) loading.classList.remove('hidden');
                 try {
                     await Promise.all([
                         faceapi.nets.tinyFaceDetector.loadFromUri('https://justadudewhohacks.github.io/face-api.js/models'),
                         faceapi.nets.faceLandmark68Net.loadFromUri('https://justadudewhohacks.github.io/face-api.js/models'),
                         faceapi.nets.faceRecognitionNet.loadFromUri('https://justadudewhohacks.github.io/face-api.js/models')
                     ]);
-                    loading.classList.add('hidden');
-                    goHome();
+                    faceModelsLoaded = true;
                 } catch (err) {
                     console.error(err);
-                    showMessage("Failed to load face models.");
-                    loading.classList.add('hidden');
+                    showMessage("Failed to load attendance face models.");
+                } finally {
+                    faceModelsLoading = false;
+                    if (loading) loading.classList.add('hidden');
                 }
             };
 
@@ -1926,29 +1964,21 @@
                 faceapi.matchDimensions(canvas, { width: canvas.width, height: canvas.height });
             }
 
-            // Start camera & detect face
-            const startVideo = async (video, canvas, mode) => {
+            // Start camera for attendance
+            const startVideo = async (video, canvas) => {
                 stopAllVideo();
+                await loadModels();
+                if (!faceModelsLoaded) return;
                 try {
                     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
                     video.srcObject = stream;
                     video.onloadedmetadata = () => {
                         video.play();
-                        // Set canvas size after a short delay for rendering
                         setTimeout(() => updateCanvasSize(video, canvas), 200);
-                        // Optional: Listen for resize (modern browsers)
                         const resizeObserver = new ResizeObserver(() => updateCanvasSize(video, canvas));
                         resizeObserver.observe(video.parentElement);
-                        if (mode === 'register') {
-                            isVideoRegPlaying = true;
-                            detectFace(video, canvas, mode);
-                        } else if (mode === 'login') {
-                            isVideoLoginPlaying = true;
-                            detectFace(video, canvas, mode);
-                        } else if (mode === 'attendance') {
-                            isVideoAttendancePlaying = true;
-                            detectFace(video, canvas, mode);
-                        }
+                        isVideoAttendancePlaying = true;
+                        detectFace(video, canvas, 'attendance');
                     };
                 } catch (err) {
                     console.error(err);
@@ -1956,15 +1986,11 @@
                 }
             };
 
-            // Detect face
+            // Detect face (attendance only)
             const detectFace = (video, canvas, mode) => {
                 const context = canvas.getContext('2d');
                 const interval = setInterval(async () => {
-                    let isPlaying;
-                    if (mode === 'register') isPlaying = isVideoRegPlaying;
-                    else if (mode === 'login') isPlaying = isVideoLoginPlaying;
-                    else if (mode === 'attendance') isPlaying = isVideoAttendancePlaying;
-                    if (!isPlaying) {
+                    if (!isVideoAttendancePlaying) {
                         clearInterval(interval);
                         return;
                     }
@@ -1978,81 +2004,40 @@
                         const resizedDetections = faceapi.resizeResults(detections, { width: canvas.width, height: canvas.height });
                         faceapi.draw.drawDetections(canvas, resizedDetections);
                         faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
-                        if (mode === 'register') registerBtn.disabled = false;
-                        else if (mode === 'login' && Object.keys(registeredUsers).length > 0) loginBtn.disabled = false;
-                        else if (mode === 'attendance' && loggedInUser) markAttendanceBtn.disabled = false;
-                    } else if (mode === 'register') {
-                        registerBtn.disabled = true;
+                        if (mode === 'attendance' && loggedInUser && loggedInUser.descriptor) {
+                            markAttendanceBtn.disabled = false;
+                        } else if (mode === 'attendance' && loggedInUser && !loggedInUser.descriptor) {
+                            if (setupFaceBtn) setupFaceBtn.disabled = false;
+                        }
                     } else if (mode === 'attendance') {
                         markAttendanceBtn.disabled = true;
+                        if (setupFaceBtn) setupFaceBtn.disabled = true;
                     }
                 }, 200);
-                if (mode === 'register') regInterval = interval;
-                else if (mode === 'login') loginInterval = interval;
-                else if (mode === 'attendance') attendanceInterval = interval;
+                attendanceInterval = interval;
             };
 
-            // Handle username input
-            usernameInput.addEventListener('input', () => { registerBtn.disabled = usernameInput.value.trim() === ''; });
-
-            // Register button
-            registerBtn.addEventListener('click', async () => {
-                const username = usernameInput.value.trim();
-                if (!username) { showMessage("Enter username."); return; }
-                if (registeredUsers[username]) { showMessage("Username exists."); return; }
-                const detections = await faceapi.detectSingleFace(videoReg, new faceapi.TinyFaceDetectorOptions({ inputSize: 320, scoreThreshold: 0.5 })).withFaceLandmarks().withFaceDescriptor();
-                if (detections) {
-                    registeredUsers[username] = { descriptor: Array.from(detections.descriptor) };
-                    localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
-                    
-                    // Save username to userProfile
-                    try {
-                        const userProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-                        userProfile.username = username;
-                        userProfile.name = username;
-                        localStorage.setItem('userProfile', JSON.stringify(userProfile));
-                    } catch (e) {
-                        console.error('Error saving user profile:', e);
-                    }
-                    
-                    showMessage("Registration successful! Please select your batch.");
-                    
-                    // Show batch selection screen
-                    showBatchSelection();
-                } else showMessage("Face not detected. Try again.");
+            [usernameInput, registerEmailInput, registerPasswordInput, registerConfirmPasswordInput].forEach(input => {
+                if (input) input.addEventListener('input', updateRegisterButtonState);
+            });
+            [loginEmailInput, loginPasswordInput].forEach(input => {
+                if (input) input.addEventListener('input', updateLoginButtonState);
             });
 
-            // Login button with location verification
-            loginBtn.addEventListener('click', async () => {
-                if (Object.keys(registeredUsers).length === 0) { showMessage("No users registered."); return; }
-                const detections = await faceapi.detectSingleFace(videoLogin, new faceapi.TinyFaceDetectorOptions({ inputSize: 320, scoreThreshold: 0.5 })).withFaceLandmarks().withFaceDescriptor();
-                if (!detections) { showMessage("Face not detected."); return; }
-
-                const labeled = await Promise.all(
-                    Object.entries(registeredUsers).map(([u, data]) => new faceapi.LabeledFaceDescriptors(u, [new Float32Array(data.descriptor)]))
-                );
-                const matcher = new faceapi.FaceMatcher(labeled, 0.6);
-                const bestMatch = matcher.findBestMatch(detections.descriptor);
-
-                if (bestMatch.distance >= 0.6) { showMessage("Face not recognized."); return; }
-
-                loggedInUser = { username: bestMatch.label, descriptor: new Float32Array(registeredUsers[bestMatch.label].descriptor) };
-
-                // Update UI with username
-                const username = bestMatch.label;
+            function completeLogin(user) {
+                loggedInUser = user;
+                const username = user.username;
                 const navUsernameEl = document.getElementById('nav-username');
                 const sidebarUsernameEl = document.getElementById('sidebar-username');
                 const sidebarIdEl = document.getElementById('sidebar-id');
-                
+
                 if (navUsernameEl) navUsernameEl.textContent = username;
                 if (sidebarUsernameEl) sidebarUsernameEl.textContent = username;
                 if (sidebarIdEl) sidebarIdEl.textContent = username + 'ID';
-                
-                // Update dashboard username
+
                 const dashboardUsername = document.getElementById('dashboard-username');
                 if (dashboardUsername) dashboardUsername.textContent = username;
-                
-                // Load and update profile photo if available
+
                 try {
                     const savedProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
                     if (savedProfile.photo) {
@@ -2062,33 +2047,115 @@
                     console.error('Error loading profile photo on login:', e);
                 }
 
-                // Face recognized -> verify location
-                if (!navigator.geolocation) { showMessage("Geolocation not supported."); return; }
+                updateFaceSetupUI();
+            }
+
+            function showDashboardAfterLogin(attendanceMessage) {
+                if (authScreens) authScreens.classList.add('hidden');
+                if (dashboardContent) dashboardContent.classList.remove('hidden');
+                initializeDashboard();
+                if (attendanceMessage) showMessage(attendanceMessage);
+            }
+
+            // Register button
+            registerBtn.addEventListener('click', async () => {
+                const name = usernameInput.value.trim();
+                const email = registerEmailInput.value.trim().toLowerCase();
+                const password = registerPasswordInput.value;
+                const confirmPassword = registerConfirmPasswordInput.value;
+
+                if (!name) { showMessage("Enter your full name."); return; }
+                if (!isValidEmail(email)) { showMessage("Enter a valid email address."); return; }
+                if (password.length < 6) { showMessage("Password must be at least 6 characters."); return; }
+                if (password !== confirmPassword) { showMessage("Passwords do not match."); return; }
+                if (authUsers[email]) { showMessage("An account with this email already exists."); return; }
+
+                const passwordHash = await hashPassword(password);
+                authUsers[email] = { username: name, passwordHash, descriptor: null };
+                localStorage.setItem('authUsers', JSON.stringify(authUsers));
+
+                try {
+                    const userProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+                    userProfile.username = name;
+                    userProfile.name = name;
+                    userProfile.email = email;
+                    localStorage.setItem('userProfile', JSON.stringify(userProfile));
+                } catch (e) {
+                    console.error('Error saving user profile:', e);
+                }
+
+                loggedInUser = { email, username: name, descriptor: null };
+                completeLogin(loggedInUser);
+                showMessage("Account created! Please select your batch.");
+                showBatchSelection();
+            });
+
+            // Login button
+            loginBtn.addEventListener('click', async () => {
+                const email = loginEmailInput.value.trim().toLowerCase();
+                const password = loginPasswordInput.value;
+
+                if (!email || !password) { showMessage("Enter email and password."); return; }
+                if (!authUsers[email]) { showMessage("No account found with this email."); return; }
+
+                const passwordHash = await hashPassword(password);
+                if (authUsers[email].passwordHash !== passwordHash) {
+                    showMessage("Incorrect password.");
+                    return;
+                }
+
+                const user = authUsers[email];
+                loggedInUser = {
+                    email,
+                    username: user.username,
+                    descriptor: user.descriptor ? new Float32Array(user.descriptor) : null
+                };
+                completeLogin(loggedInUser);
+
+                const savedProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+                if (!savedProfile.batch) {
+                    showMessage("Welcome back! Please select your batch.");
+                    showBatchSelection();
+                    return;
+                }
+
+                if (!navigator.geolocation) {
+                    showDashboardAfterLogin();
+                    return;
+                }
+
                 navigator.geolocation.getCurrentPosition(pos => {
                     const distance = getDistance(pos.coords.latitude, pos.coords.longitude, CLASSROOM_LOCATION.lat, CLASSROOM_LOCATION.lon);
-
-                    // Show dashboard after successful login
-                    if (authScreens) authScreens.classList.add('hidden');
-                    if (dashboardContent) dashboardContent.classList.remove('hidden');
-                    
-                    // Initialize dashboard
-                    initializeDashboard();
-
                     if (distance <= RADIUS_METERS) {
-                        showMessage("Location verified ✅ Attendance marked!");
+                        showDashboardAfterLogin("Location verified. Attendance marked!");
                     } else {
-                        showMessage("Outside classroom radius ❌ Attendance denied.");
+                        showDashboardAfterLogin("Signed in. Outside classroom radius — attendance not marked.");
                     }
-                }, err => {
-                    showMessage("Location permission denied.");
-                    // Still show dashboard for access
-                    authScreens.classList.add('hidden');
-                    dashboardContent.classList.remove('hidden');
-                    
-                    // Initialize dashboard
-                    initializeDashboard();
+                }, () => {
+                    showDashboardAfterLogin("Signed in. Location permission denied.");
                 });
             });
+
+            if (setupFaceBtn) {
+                setupFaceBtn.addEventListener('click', async () => {
+                    if (!loggedInUser) return;
+                    await loadModels();
+                    if (!faceModelsLoaded) return;
+
+                    const detections = await faceapi.detectSingleFace(videoAttendance, new faceapi.TinyFaceDetectorOptions({ inputSize: 320, scoreThreshold: 0.5 })).withFaceLandmarks().withFaceDescriptor();
+                    if (!detections) {
+                        showMessage("Face not detected. Center your face and try again.");
+                        return;
+                    }
+
+                    const descriptor = Array.from(detections.descriptor);
+                    authUsers[loggedInUser.email].descriptor = descriptor;
+                    localStorage.setItem('authUsers', JSON.stringify(authUsers));
+                    loggedInUser.descriptor = new Float32Array(descriptor);
+                    updateFaceSetupUI();
+                    showMessage("Face registered for attendance!");
+                });
+            }
 
             // Enhanced Liveness Detection Function - Prevents photo/video spoofing
             async function performLivenessCheck(video, duration = 6000) {
@@ -2362,6 +2429,14 @@
                     return; 
                 }
 
+                if (!loggedInUser.descriptor) {
+                    showMessage("Please set up face recognition first using the button above.");
+                    return;
+                }
+
+                await loadModels();
+                if (!faceModelsLoaded) return;
+
                 // Check if video is available
                 if (!videoAttendance || !videoAttendance.srcObject) {
                     showMessage("Camera not available. Please ensure camera access is granted.");
@@ -2512,7 +2587,8 @@
                     document.getElementById(tabId).classList.add('active');
 
                     if (tabId === 'attendance' && loggedInUser) {
-                        startVideo(videoAttendance, canvasAttendance, 'attendance');
+                        updateFaceSetupUI();
+                        startVideo(videoAttendance, canvasAttendance);
                     }
                     
                     // Refresh timetable when timetable tab is accessed
@@ -4285,7 +4361,7 @@
             });
 
             // Initialize the application
-            loadModels();
+            goHome();
         }
 
         // Teacher Dashboard Initialization

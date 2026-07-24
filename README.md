@@ -180,7 +180,8 @@ Clearing site data or switching browsers resets all records. There is no server 
 
 ## Author
 
-**Hemanth** — [@hemannt003](https://github.com/hemannt003)
+**Hemant
+** — [@hemannt003](https://github.com/hemannt003)
 
 ## Acknowledgments
 
